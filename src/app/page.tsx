@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Navbar from "./Navbar"; // Ensure correct import
-
+import { useRouter } from "next/navigation";
 export default function Home() {
   return (
     <main
@@ -13,12 +13,16 @@ export default function Home() {
           Seamless Blood Donation & Smart Conservation
         </p>
         <div className="flex space-x-4 mt-6">
-          <button className="px-6 py-3 bg-white text-red-600 font-semibold rounded-full shadow-lg">
-            Sign In
-          </button>
-          <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-full shadow-lg">
-            Register
-          </button>
+          <Link href="/login">
+            <button className="px-6 py-3 bg-white text-red-600 font-semibold rounded-full shadow-lg">
+              Sign In
+            </button>
+          </Link>
+          <Link href="/register">
+            <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-full shadow-lg">
+              Register
+            </button>
+          </Link>
         </div>
       </div>
     </main>

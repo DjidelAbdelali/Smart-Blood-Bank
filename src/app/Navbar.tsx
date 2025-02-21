@@ -1,24 +1,30 @@
 "use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname(); // Get current route
+
   return (
-    <nav className="relative bg-white text-red p-4 flex justify-around items-center w-full">
-      <Link href="/" className="text-xl font-bold text-red-600">
-        Guest Mode
-      </Link>
-      <Link href="/services" className="text-xl font-bold text-black">
-        Services
-      </Link>
-      <Link href="/PartnerHospitals" className="text-xl font-bold text-black">
-        Partner Hospitals
-      </Link>
-      <Link href="/About" className="text-xl font-bold text-black">
-        About us
-      </Link>
-      <Link href="/Contact" className="text-xl font-bold text-black">
-        Contact us
-      </Link>
+    <nav className="relative bg-white p-4 flex justify-around items-center w-full">
+      {[
+        { href: "/", label: "Guest Mode" },
+        { href: "/service", label: "Services" },
+        { href: "/partner", label: "Partner Hospitals" },
+        { href: "/about", label: "About us" },
+        { href: "/contact", label: "Contact us" },
+      ].map(({ href, label }) => (
+        <Link
+          key={href}
+          href={href}
+          className={`text-xl font-bold ${
+            pathname === href ? "text-red-600" : "text-black"
+          }`}
+        >
+          {label}
+        </Link>
+      ))}
     </nav>
   );
 }

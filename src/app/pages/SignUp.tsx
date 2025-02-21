@@ -1,4 +1,6 @@
 import Navbar from "../Navbar";
+import { useState } from "react";
+import Button from "../components/Button";
 import Link from "next/link";
 
 export default function Signup() {
@@ -19,14 +21,14 @@ export default function Signup() {
 
       <div className="mt-6 flex gap-4">
         <Link href="/donor">
-          <button className="bg-white text-red-600 px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:scale-105 transition">
+          <Button className="bg-white text-red-600 px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:scale-105 transition">
             Donor
-          </button>
+          </Button>
         </Link>
         <Link href="/hospital">
-          <button className="bg-red-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:scale-105 transition">
+          <Button className="bg-red-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:scale-105 transition">
             Hospital
-          </button>
+          </Button>
         </Link>
       </div>
     </main>
