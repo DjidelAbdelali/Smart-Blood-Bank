@@ -5,7 +5,9 @@ import App from "./App.jsx";
 import "./page.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  // <AuthProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  // </AuthProvider>
 );

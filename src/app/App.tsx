@@ -11,6 +11,7 @@ import GuestMode from "./guestmode/page";
 
 const App: React.FC = () => {
   return (
+
     <div>
       <nav className="p-4 bg-white shadow-md flex justify-between">
         <Link to="/" className="text-xl font-bold text-red-600">

@@ -1,18 +1,22 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import Navbar from "../Navbar";
 import Link from "next/link";
 import { useState } from "react";
 import Button from "../components/Button";
+// import { useAuth,AuthProvider } from "../context/AuthContext"; 
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
+  // const { setIsAuthenticated } = useAuth();
   const handleLogin = () => {
     setLoading(true);
+
     setTimeout(() => {
+      // setIsAuthenticated(true);
       setLoading(false);
-      // Add your login logic here
+      router.push("/donate");
     }, 2000);
   };
 
