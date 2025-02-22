@@ -1,8 +1,16 @@
 "use client";
 
-import Link from "next/link";
+import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
+  const router = useRouter();
+
+  // Handler to navigate to the edit profile page
+  const handleEditProfile = () => {
+    router.push("/donate/editprofile"); // Adjust the route as needed
+  };
+
   return (
     <main className="min-h-screen px-6 py-8">
       {/* Profile Section */}
@@ -25,8 +33,10 @@ export default function Profile() {
 
           {/* Profile Edit Icons */}
           <div className="ml-auto flex space-x-4 mt-4 md:mt-0">
+            {/* Pencil Icon for Editing */}
             <button
               title="Edit Profile"
+              onClick={handleEditProfile}
               className="text-gray-500 hover:text-gray-700"
             >
               <svg
@@ -40,11 +50,12 @@ export default function Profile() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M16 2l6 6M2 14l8 8"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7 21H3v-4L16.732 3.732z"
                 />
               </svg>
             </button>
 
+            {/* Settings Icon */}
             <button
               title="Settings"
               className="text-gray-500 hover:text-gray-700"
@@ -76,13 +87,16 @@ export default function Profile() {
         </p>
       </section>
 
-      {/* Recent Posts / Donations */}
+      {/* Recent Posts / Donations Section */}
       <section className="max-w-4xl mx-auto mt-10">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-gray-700">Recent Posts</h2>
-          <Link href="#" className="text-red-600 hover:underline">
+          <button
+            className="text-red-600 hover:underline"
+            onClick={() => router.push("/donate/posts")}
+          >
             More Posts
-          </Link>
+          </button>
         </div>
 
         {/* Post Card */}
@@ -102,14 +116,14 @@ export default function Profile() {
             <p className="text-green-600 font-semibold">Status: Done</p>
           </div>
 
-          {/* Buttons on the Right */}
+          {/* Action Buttons */}
           <div className="flex justify-end mt-4 space-x-2">
-            {/* White button with red text, more rounded */}
+            {/* White button with red text */}
             <button className="border border-red-500 text-red-500 px-4 py-1 rounded-full hover:bg-red-50 transition">
               Edit Post
             </button>
 
-            {/* Red button with white text, more rounded */}
+            {/* Red button with white text */}
             <button className="bg-red-500 text-white px-4 py-1 rounded-full hover:bg-red-600 transition">
               Delete Post
             </button>
