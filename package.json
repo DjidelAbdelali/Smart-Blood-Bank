@@ -1,16 +1,26 @@
 {
-  "name": "scroll",
-  "version": "0.1.0",
+  "name": "smart-blood-bank",
+  "version": "1.0.0",
+  "description": "Smart Blood Bank & Voluntary Donor Network Platform",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
+    "export": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cap:sync": "npx cap sync",
+    "cap:android": "npx cap add android && npx cap sync android",
+    "cap:ios": "npx cap add ios && npx cap sync ios"
   },
   "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/cli": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/ios": "^8.6.2",
     "autoprefixer": "^10.4.20",
     "framer-motion": "^12.4.7",
+    "lucide-react": "^1.73.0",
     "next": "^15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

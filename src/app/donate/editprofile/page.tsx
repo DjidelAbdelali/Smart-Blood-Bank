@@ -1,141 +1,198 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth, BloodGroup } from "../../context/AuthContext";
+import { ArrowLeft, Check, User, Phone, MapPin, Award, FileText, Droplets } from "lucide-react";
 
 export default function EditProfile() {
-  const [username, setUsername] = useState("FEKKAI Ahmed");
-  const [phoneNumber, setPhoneNumber] = useState("0550 50 50 50");
-  const [bio, setBio] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus nibh sit amet tempus hendrerit."
-  );
-  const [pack, setPack] = useState("Current Pack");
+  const router = useRouter();
+  const { user, updateProfile } = useAuth();
 
-  const handleDiscard = () => console.log("Changes discarded");
-  const handleConfirm = () =>
-    console.log("Profile updated:", { username, phoneNumber, bio, pack });
-  const handleChangeOffer = () => console.log("Change the Offer clicked");
+  const [name, setName] = useState(user?.name || "Ahmed FEKKAI");
+  const [phoneNumber, setPhoneNumber] = useState(user?.phone || "0550 50 50 50");
+  const [bloodType, setBloodType] = useState<BloodGroup>(user?.bloodType || "O+");
+  const [wilaya, setWilaya] = useState(user?.wilaya || "16 - Alger");
+  const [bio, setBio] = useState(
+    user?.bio ||
+      "Donneur régulier et bénévole. Prêt à intervenir en cas d'urgence de transfusion dans la région algéroise."
+  );
+  const [pack, setPack] = useState(user?.pack || "Hero Gold Donor");
+  const [savedSuccess, setSavedSuccess] = useState(false);
+
+  const bloodGroups: BloodGroup[] = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+  const wilayas = [
+    "16 - Alger",
+    "31 - Oran",
+    "25 - Constantine",
+    "06 - Béjaïa",
+    "09 - Blida",
+    "15 - Tizi Ouzou",
+    "19 - Sétif",
+    "23 - Annaba",
+    "13 - Tlemcen",
+    "35 - Boumerdès",
+  ];
+
+  const handleConfirm = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateProfile({
+      name,
+      phone: phoneNumber,
+      bloodType,
+      wilaya,
+      bio,
+      pack,
+    });
+    setSavedSuccess(true);
+    setTimeout(() => {
+      router.push("/donate");
+    }, 1200);
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Scrollable container */}
-      <div className="flex-1 overflow-y-auto flex justify-center items-start px-6 py-8">
-        <section className="bg-white max-w-4xl w-full p-4 rounded-lg shadow-md">
-          <h2 className="text-3xl font-bold text-black mb-4 text-center">
-            Edit Profile
-          </h2>
+    <div className="max-w-3xl mx-auto py-6 pb-12">
+      <button
+        onClick={() => router.push("/donate")}
+        className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-red-600 transition"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        <span>Retour au profil donneur</span>
+      </button>
 
-          {/* Profile Picture */}
-          <div className="flex flex-col items-center mb-4">
-            <div className="bg-gray-200 rounded-full w-24 h-24 flex items-center justify-center mb-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M5.121 17.804A4 4 0 018 16h8a4 4 0 012.879 1.804M12 14v.01M12 14c-1.933 0-3.714-.78-5.02-2.05A6.978 6.978 0 015 9a7 7 0 1114 0c0 1.933-.78 3.714-2.05 5.02A6.978 6.978 0 0112 14z"
-                />
-              </svg>
+      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div className="text-center mb-8">
+          <div className="relative inline-block">
+            <div className="w-24 h-24 rounded-full bg-red-600 text-white flex items-center justify-center text-3xl font-black shadow-lg shadow-red-500/20 mx-auto">
+              {bloodType}
             </div>
-            <p className="text-red-600 font-semibold cursor-pointer hover:underline text-sm">
-              Change Profile Picture
-            </p>
+            <div className="absolute -bottom-1 -right-1 p-1.5 bg-emerald-500 rounded-full border-2 border-white text-white">
+              <Check className="w-4 h-4" />
+            </div>
           </div>
+          <h1 className="text-2xl font-bold text-slate-900 mt-4">Modifier le Profil Donneur</h1>
+          <p className="text-sm text-slate-500">Mettez à jour vos coordonnées médicales et de contact</p>
+        </div>
 
-          {/* Form */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col">
-              <label
-                htmlFor="username"
-                className="text-lg font-semibold text-gray-700 mb-1"
-              >
-                Edit Username:
+        {savedSuccess && (
+          <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-semibold flex items-center gap-2">
+            <Check className="w-5 h-5 text-emerald-600 shrink-0" />
+            <span>Profil mis à jour avec succès ! Redirection en cours...</span>
+          </div>
+        )}
+
+        <form onSubmit={handleConfirm} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-red-500" />
+                <span>Nom & Prénom</span>
               </label>
               <input
-                id="username"
                 type="text"
-                className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
               />
             </div>
-            <div className="flex flex-col">
-              <label
-                htmlFor="phoneNumber"
-                className="text-lg font-semibold text-gray-700 mb-1"
-              >
-                Edit Number:
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-red-500" />
+                <span>Numéro de Téléphone</span>
               </label>
               <input
-                id="phoneNumber"
                 type="text"
-                className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+                required
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
               />
-            </div>
-            <div className="flex flex-col md:col-span-2">
-              <label
-                htmlFor="bio"
-                className="text-lg font-semibold text-gray-700 mb-1"
-              >
-                Edit Bio:
-              </label>
-              <textarea
-                id="bio"
-                rows={3}
-                className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-              />
-            </div>
-            {/* Offer and Change Button Inline */}
-            <div className="flex flex-col md:col-span-2">
-              <label
-                htmlFor="pack"
-                className="text-lg font-semibold text-gray-700 mb-1"
-              >
-                Edit Pack:
-              </label>
-              <div className="flex space-x-2">
-                <input
-                  id="pack"
-                  type="text"
-                  className="border border-gray-300 rounded-md p-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-red-400"
-                  value={pack}
-                  onChange={(e) => setPack(e.target.value)}
-                />
-                <button
-                  onClick={handleChangeOffer}
-                  className="px-4 py-2 bg-red-600 text-white font-semibold rounded-md text-sm hover:bg-red-700 transition"
-                >
-                  Change The Offer
-                </button>
-              </div>
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex justify-center md:justify-end mt-4 space-x-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <Droplets className="w-3.5 h-3.5 text-red-500" />
+                <span>Groupe Sanguin (Certifié)</span>
+              </label>
+              <select
+                value={bloodType}
+                onChange={(e) => setBloodType(e.target.value as BloodGroup)}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                {bloodGroups.map((g) => (
+                  <option key={g} value={g}>
+                    Groupe {g}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-red-500" />
+                <span>Wilaya de Résidence</span>
+              </label>
+              <select
+                value={wilaya}
+                onChange={(e) => setWilaya(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                {wilayas.map((w) => (
+                  <option key={w} value={w}>
+                    {w}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+              <Award className="w-3.5 h-3.5 text-red-500" />
+              <span>Niveau de Donateur / Badge d&apos;Honneur</span>
+            </label>
+            <input
+              type="text"
+              value={pack}
+              onChange={(e) => setPack(e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5 text-red-500" />
+              <span>Bio & Disponibilité pour les dons</span>
+            </label>
+            <textarea
+              rows={4}
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+              placeholder="Indiquez vos disponibilités et vos préférences d'intervention..."
+            />
+          </div>
+
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
             <button
-              onClick={handleDiscard}
-              className="px-4 py-2 bg-white text-red-500 border border-red-500 font-semibold rounded-md text-sm hover:bg-red-50 transition"
+              type="button"
+              onClick={() => router.push("/donate")}
+              className="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition"
             >
-              Discard
+              Annuler
             </button>
             <button
-              onClick={handleConfirm}
-              className="px-4 py-2 bg-green-500 text-white font-semibold rounded-md text-sm hover:bg-green-600 transition"
+              type="submit"
+              className="px-6 py-2.5 rounded-xl text-sm font-bold bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-500/20 transition active:scale-95"
             >
-              Confirm
+              Enregistrer les modifications
             </button>
           </div>
-        </section>
+        </form>
       </div>
     </div>
   );

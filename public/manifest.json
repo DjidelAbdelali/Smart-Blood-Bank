@@ -1,0 +1,21 @@
+{
+  "name": "iDonate - Smart Blood Bank",
+  "short_name": "iDonate",
+  "description": "Smart Blood Bank & Voluntary Donor Network in Algeria",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "icons": [
+    {
+      "src": "/file.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/file.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
