@@ -15,7 +15,7 @@ export default function EditProfile() {
   const [wilaya, setWilaya] = useState(user?.wilaya || "16 - Alger");
   const [bio, setBio] = useState(
     user?.bio ||
-      "Donneur régulier et bénévole. Prêt à intervenir en cas d'urgence de transfusion dans la région algéroise."
+    "Donneur régulier et bénévole. Prêt à intervenir en cas d'urgence de transfusion dans la région algéroise."
   );
   const [pack, setPack] = useState(user?.pack || "Hero Gold Donor");
   const [savedSuccess, setSavedSuccess] = useState(false);

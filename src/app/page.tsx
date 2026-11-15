@@ -150,11 +150,10 @@ export default function Home() {
               <button
                 key={group}
                 onClick={() => setSelectedGroup(group)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                  selectedGroup === group
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${selectedGroup === group
                     ? "bg-red-600 text-white shadow-xs"
                     : "text-slate-600 hover:text-red-600"
-                }`}
+                  }`}
               >
                 {group}
               </button>
