@@ -1,25 +1,30 @@
-# Repository Engineering Guidelines (Claude 32 Suite)
+# Repository Engineering & Creation Guidelines (Suite Complète)
 
-This repository follows the engineering standards distilled from the 32 essential AI development repositories:
+Ce projet respecte les standards d'ingénierie et de création issus des 32 dépôts Claude et des compétences avancées :
 
-## 1. Andrej Karpathy Engineering Principles
-- **Think Before Coding**: Understand the root cause before editing. Formulate a hypothesis and minimal change set.
-- **Simplicity First**: Write readable, direct code. Avoid premature abstractions.
-- **Surgical Changes**: Restrict diffs strictly to the goal. Do not reformat unrelated code or delete valid comments.
-- **Goal-Driven Execution**: Verify every change with a passing build, type-check, and runtime test.
+## 1. Principes d'Ingénierie Karpathy & Ponytail
+- **Think Before Coding** : Diagnostic de la cause racine avant toute modification.
+- **Simplicité d'Abord** : Préférer des fonctions lisibles et directes aux abstractions prématurées.
+- **Diffs Chirurgicaux** : Modifier uniquement ce qui est nécessaire sans toucher au code fonctionnel adjacent.
+- **Validation Stricte** : Toujours vérifier la compilation (`build`), le typage et le runtime.
+- **Minimalisme du Code** : Le meilleur code est celui qu'on n'a pas besoin d'écrire. Éliminer le code mort.
 
-## 2. Ponytail Pragmatism
-- Keep code minimal. The best line of code is the one you never had to write.
-- Always check if built-in browser/standard APIs can solve the issue before adding dependencies.
-- Remove dead code and unused assets immediately.
+## 2. UI/UX Pro Max & Modern Web Craft
+- Grille de 8px, padding généreux et typographie hiérarchisée.
+- Animations fluides à 60–120 FPS avec courbes spring `cubic-bezier(0.16, 1, 0.3, 1)`.
+- Élimination du "slop IA" (pas de dégradés violets fluo superflus, pas de blobs informes).
+- Architecture de conversion : Hero percutant, preuve sociale, grilles interactives et SEO technique complet.
 
-## 3. UI/UX Pro Max & Taste
-- Adhere to an 8px grid system with generous card padding and clear typographic hierarchy.
-- Micro-interactions must be fast and fluid (180ms–280ms) using hardware-accelerated spring curves (`cubic-bezier(0.16, 1, 0.3, 1)`).
-- Eliminate generic "AI slop" (no neon purple gradients, no floating glossy blobs, no emoji button labels).
+## 3. Social Media & Content Engine (LinkedIn, Instagram, Facebook)
+- **LinkedIn** : Dwell time, hooks à contre-courant, études de cas et carrousels PDF.
+- **Instagram** : Scripts Reels 0–60s (Hook-Retain-Reward), carrousels 8–10 slides, micro-appels à l'action.
+- **Facebook** : Copywriting direct-response (PAS, AIDA, Before-After-Bridge) et posts d'engagement communautaire.
 
-## 4. Context7 Accurate APIs
-- Check real version-specific documentation using Context7 (`npx --yes ctx7 search "<query>"`) when integrating modern libraries.
+## 4. Game Development & Design 2D / 3D
+- Game loop normalisée avec `deltaTime` (indépendante du framerate).
+- **2D** : Sprite sheets, tilemaps, parallaxes et animations dynamiques.
+- **3D** : Three.js, React Three Fiber, WebGL shaders, modèles GLTF/GLB optimisés Draco, éclairages PBR et moteurs physiques (Rapier).
 
-## 5. Repomix Codebase Packaging
-- Use `repomix --style markdown` to pack repository state for holistic AI reasoning and review.
+## 5. Automatisation de Workflows d'Agents IA
+- Orchestration multi-agents via `run_workflow` (pipelines séquentiels, fan-out/fan-in parallèle, boucles générateur-évaluateur).
+- Tâches d'arrière-plan autonomes planifiées (cron expressions).
